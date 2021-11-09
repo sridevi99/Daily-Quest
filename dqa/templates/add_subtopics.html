@@ -1,0 +1,21 @@
+{% extends 'base.html' %} 
+{% block title %} Add Subtopic {% endblock %} 
+{% block body %}
+<div class="grid-container">
+  <form action="/todays_quest" method="POST">
+    <div class="grid-x large-12 grid-padding-x align-center">
+      <div class="cell auto">
+          <label>Please select Topic for quest</label>
+          <select name="topic" >
+              {% for topic in topics %}
+              <option value="{{ topic }}">{{ topic }}</option>
+              {% endfor %}
+          </select>
+          <input type="text" name="subtopic" value="" />
+          <input type="submit" value="Add" class="button expanded" />
+        </label>
+      </div>
+    </div>
+  </form>
+</div>
+{% endblock %}

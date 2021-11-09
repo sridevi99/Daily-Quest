@@ -1,0 +1,13 @@
+pyparsing==2.4.7
+Flask
+flask-login
+flask-dance
+oauthlib
+gunicorn
+APScheduler
+google-cloud-logging
+firebase-admin
+python-dotenv
+itsdangerous
+Jinja2
+Werkzeug

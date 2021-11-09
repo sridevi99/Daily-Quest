@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block head %}
+
+<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"  crossorigin="anonymous"></script> -->
+<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js" crossorigin="anonymous"></script>
+
+<script src="https://pagecdn.io/lib/ace/1.4.12/ace.min.js"
+    crossorigin="anonymous"
+    integrity="sha256-T5QdmsCQO5z8tBAXMrCZ4f3RX8wVdiA0Fu17FGnU1vU=" ></script>
+<script src="https://pagecdn.io/lib/ace/1.4.12/mode-python.min.js" crossorigin="anonymous"  ></script>
+<script src="https://pagecdn.io/lib/ace/1.4.12/theme-monokai.min.js" crossorigin="anonymous"  ></script>
+
+{% endblock %}
+{% block body %}
+<div class="grid-x">
+    <h4 class="cell align-center" style="text-align: center;">{{ name}}</h4>
+    <blockquote class="cell"><pre>{{ quest }}</pre></blockquote>
+</div>
+
+<div class="grid-x">
+    <div class="cell">
+		<form action="/submit_solution"  method="post">
+            <input value="{{ topic }}::{{ qid }}::{{ quest_date }}" type="hidden" id="quest_topic_date"
+		    name="quest_date"/>
+            <div id="proposed_solution" name="proposed_solution"
+                style="width: 100%; height: 20em"
+                placeholder="Please enter your solution here"></div>
+            <textarea name="proposed_solution" style="display: None;"></textarea>
+		<br>
+		  <input type="submit" value="Submit" class="button expanded">
+		</form>
+    </div>
+</div>
+
+        <script>
+
+    var editor = ace.edit("proposed_solution");
+    editor.setFontSize(16) // will set font-size: 10px
+    var textarea = $('textarea[name="proposed_solution"]');
+    editor.getSession().on("change", function () {
+        textarea.val(editor.getSession().getValue());
+    });
+
+    editor.setTheme("ace/theme/monokai");
+    editor.session.setMode("ace/mode/python");
+</script>
+{% endblock %}

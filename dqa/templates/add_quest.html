@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block head %}
+
+<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script> -->
+<!-- <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script> -->
+
+<script src="https://pagecdn.io/lib/ace/1.4.12/ace.min.js"
+    crossorigin="anonymous"
+    integrity="sha256-T5QdmsCQO5z8tBAXMrCZ4f3RX8wVdiA0Fu17FGnU1vU=" ></script>
+<script src="https://pagecdn.io/lib/ace/1.4.12/mode-python.min.js" crossorigin="anonymous"  ></script>
+<script src="https://pagecdn.io/lib/ace/1.4.12/theme-monokai.min.js" crossorigin="anonymous"  ></script>
+
+{% endblock %}
+{% block body %}
+
+<div class="grid-x">
+    <div class="cell">
+		<form action="/add_quest"  method="post">
+
+          <label>Please select Topic for quest</label>
+          <select name="topic" >
+              {% for topic_id, topic in topics.items() %}
+              <<option value="{{ topic_id }}">{{ topic }}</option>
+              {% endfor %}
+          </select>
+        </label>
+        <label>Quest Name:
+            <input type="text" name="name" />
+        </label>
+        <label>Quest:
+            <textarea name="quest"></textarea>
+        </label>
+        <label>Solution(s)
+            <div id="solution" name="solution"
+                style="width: 100%; height: 15em"
+                placeholder="Please enter your solution here"></div>
+            <textarea name="solution" style="display: None;"></textarea>
+            </label>
+
+		  <input type="submit" value="Submit" class="button expanded">
+		</form>
+    </div>
+</div>
+
+<script>
+
+    var editor = ace.edit("solution");
+    editor.setFontSize(16) // will set font-size: 10px
+    var textarea = $('textarea[name="solution"]');
+    editor.getSession().on("change", function () {
+        textarea.val(editor.getSession().getValue());
+    });
+
+    editor.setTheme("ace/theme/monokai");
+    editor.session.setMode("ace/mode/python");
+</script>
+{% endblock %}

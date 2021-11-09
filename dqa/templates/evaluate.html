@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% block head %}
+    <link href="https://code.jquery.com/ui/1.13.0/themes/smoothness/jquery-ui.css" rel="stylesheet" type="text/css" />
+    <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"></script>
+    <script src="https://cdn.rawgit.com/digitalBush/jquery.maskedinput/1.4.1/dist/jquery.maskedinput.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='MonthPicker.min.css') }}">
+    <!-- <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='table.css') }}"> -->
+    <script src="/static/MonthPicker.min.js"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.2/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/line-awesome/1.3.0/font-awesome-line-awesome/css/all.min.css" />
+{% endblock %}
+{% block body %}
+<div class="grid-container">
+    <form action="/eval" method="POST">
+    <div class="grid-x large-12 grid-padding-x align-center">
+      <div class="cell large-4">
+          <label>Please select Quest Topic</label>
+          <select name="topic" >
+              {% for topic_id, topic in topics.items() %}
+              <option value="{{ topic_id }}">{{ topic }}</option>
+              {% endfor %}
+          </select>
+      </div>
+      <div class="cell large-4">
+           <label>Select Month
+               <input id="Month" name="month" type="text"/> 
+          </label>
+      </div>
+      <div class="cell large-4 align-self-bottom">
+          <input type="submit" class="button expanded" />
+      </div>
+    </div>
+      </form>
+    <div class="grid-x large-12 grid-padding-x align-center">
+    <div class=" large-12 ">
+
+      <form action="/evaluate" method="POST" name="evaluate" id="evaluate">
+          <input type="text" style="display: none" name="selected_month" value="{{ month }}" />
+          <input type="text" style="display: none" name="selected_topic" value="{{ topic }}" />
+    <ul class="accordion" data-accordion data-allow-all-closed="true">
+        {% for key, value in data.items() %}
+      <li class="accordion-item" data-accordion-item>
+          <a href="#" class="accordion-title">Date: {{ value['date']}}</a>
+        <div class="accordion-content" data-tab-content >
+            <div class="grid-x">
+                <div class="cell"><label>Quest Name: {{value['name'] }}</label></div>
+                <div class="cell"><label>Quest: {{value['quest'] }}</label></div>
+                <div class="cell"><label>Your Solution:</label></div>
+                <div class="cell"><code class="code-block large-12">{{ value['proposed'] }}</code></div>
+                <div class="cell"><label>Solution:</label></div>
+                <div class="cell"><code class="code-block large-12">{{ value['solution'] }}</code></div>
+                <div class="cell"><label>Result:</label>
+  <fieldset class="large-5 cell">
+    <legend>Choose Your Favorite</legend>
+    <input type="radio" name="{{ key }}" value="Unevaluated" id="Unevaluated_{{key}}" required {% if value['result'] == "Not Evaluated" %} checked {% endif %}>
+    <label for="Unevaluated_{{key}}">Unevaluated</label>
+    <input type="radio" name="{{ key }}" value="Pass" id="pass_{{key}}" {% if value['result'] == "Pass" %} checked {% endif %}><label for="pass_{{key}}">Pass</label>
+    <input type="radio" name="{{ key }}" value="Fail" id="fail_{{key}}" {% if value['result'] == "Fail" %} checked {% endif %}><label for="fail_{{key}}">Fail</label>
+  </fieldset>
+
+                </div>
+            </div>
+        </div>
+      </li>
+     {% endfor %}
+
+</ul>
+    <input type="submit" class="button expanded" value="submit" />
+      </form>
+</div>
+    </div>
+</div>
+
+
+<script>
+    var quests_detail = "";
+    $(document).ready(function() {
+    var currentYear = (new Date).getFullYear();
+    var currentMonth = (new Date).getMonth() + 1;
+    var to_set_month = `${currentYear}/${currentMonth}`;
+    $('#Month').MonthPicker({ MaxMonth: 0, ShowIcon: false,
+        MonthFormat: "yy/mm"});
+    $("#Month").val(to_set_month);
+    });
+</script>
+{% endblock %}

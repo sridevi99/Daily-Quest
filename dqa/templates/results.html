@@ -1,0 +1,36 @@
+{% extends 'base.html' %} {% block head %} {% endblock %} {% block body %}
+<div class="grid-container">
+  <form action="/todays_quest" method="POST">
+    <div class="grid-x large-12 grid-padding-x align-center">
+      <div class="cell auto">
+          <label>Please select Topic for quest</label>
+          <select name="topic" >
+              {% for topic_id, topic in topics.items() %}
+              <option value="{{ topic_id }}">{{ topic }}</option>
+              {% endfor %}
+          </select>
+          <input type="submit" value="Add" class="button expanded" />
+        </label>
+      </div>
+    </div>
+  </form>
+
+    <div class="grid-x large-12 grid-padding-x align-center">
+        <table>
+            <thead>
+                <tr>
+                <td>Associate</td>
+                <td>Monday</td>
+                <td>Tuesday</td>
+                <td>Wednesday</td>
+                <td>Thursday</td>
+                <td>Friday</td>
+                <td>Saturday</td>
+                <td>Sunday</td>
+                <td>Total Score</td>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+{% endblock %}

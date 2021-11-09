@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="{{ url_for('static', filename='favicon.ico') }}"
+      type="image/x-icon"
+    />
+    <link
+      rel="shortcut icon"
+      href="{{ url_for('static', filename='favicon.ico') }}"
+      type="image/x-icon"
+    />
+
+    <title>{{ title }}</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/foundation.css') }}"
+    />
+
+    <meta
+      name="description"
+      content="Source code generated using layoutit.com"
+    />
+    <meta name="author" content="Mayank Johri" />
+    <!--
+    <link
+      href="{{ url_for('static', filename='css/style.css') }}"
+      rel="stylesheet"
+    />
+    -->
+    <style>
+      #header {
+        border: medium;
+        background-color: wheat;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="top-bar">
+      <div class="top-bar-left">
+        <ul class="dropdown menu" data-dropdown-menu>
+            <li class="">
+                <img src="{{ user_data.picture }}" style="width: 3em; height: 3em" />
+            </li>
+            <li class="menu-text">{{ user_data.name }}, <small>Welcome to Daily Quest</small> </li>
+      </div>
+      <div class="top-bar-right">
+        <ul class="menu">
+          <li>
+              <li><a href="/">Home</a></li>
+              <li><a href="/history">My History</a></li>
+              <li><a href="/results">Three</a></li>
+              <li><a href="/logout">Logout</a></li>
+          </li>
+        </ul>
+      </div>
+    </div>
+      <div class="grid-x grid-margin grid-padding-x">
+        <div class="cell auto">Please select the Topic</div>
+        <form action="/show_quest" method="POST">
+          <select id="topic" name="topic"
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
