@@ -34,7 +34,7 @@ parsed_json = ast.literal_eval(str(certs))
 cred = credentials.Certificate(parsed_json)
 firebase_admin.initialize_app(cred, {
     'databaseURL':
-    'https://basic-python-quests-default-rtdb.asia-southeast1.firebasedatabase.app'
+    'https://dailyquest-9d678-default-rtdb.firebaseio.com/'
 })
 
 app.secret_key = os.getenv("secret_key")
